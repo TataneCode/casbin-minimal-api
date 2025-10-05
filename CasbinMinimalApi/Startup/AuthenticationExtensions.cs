@@ -27,6 +27,7 @@ public static class AuthenticationExtensions
                 .AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 })
                 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
