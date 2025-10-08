@@ -1,25 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import {appComponentText} from './app.component.text';
+import { RouterModule } from '@angular/router';
+
+import {
+  MatSidenavContainer,
+  MatSidenav,
+  MatSidenavContent
+} from '@angular/material/sidenav';
+import {MatButton, MatIconButton} from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+
+import { appComponentText } from './app.component.text';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule
+    RouterModule,
+    MatSidenavContainer,
+    MatSidenav,
+    MatSidenavContent,
+    MatButton,
+    MatIcon,
+    MatIconButton,
+    MatToolbar,
+    MatSlideToggle
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Casbin client';
-  protected readonly appComponentText = appComponentText;
+  text = appComponentText;
+  darkMode = signal(false);
+
+  // on récupère directement le checked envoyé par le mat-slide-toggle
+  onThemeChange(checked: boolean) {
+    this.darkMode.set(checked);
+    document.body.classList.toggle('dark-theme', checked);
+  }
 }
