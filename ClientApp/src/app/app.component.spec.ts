@@ -1,3 +1,5 @@
+import '@test-setup';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { provideRouter, Router } from '@angular/router';
@@ -38,10 +40,10 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const component = fixture.componentInstance;
     const btn = fixture.debugElement.query(By.css('.menu-toggle'));
-    expect(component.showSidebar()).toBeFalse();
+    expect(component.showSidebar()).toBeFalsy();
     btn.triggerEventHandler('click');
     fixture.detectChanges();
-    expect(component.showSidebar()).toBeTrue();
+    expect(component.showSidebar()).toBeTruthy();
     const sidebar = fixture.debugElement.query(By.css('.sidebar'));
     expect(sidebar.nativeElement.classList).toContain('is-open');
   });
