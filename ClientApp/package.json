@@ -20,19 +20,20 @@
     "@angular/platform-browser-dynamic": "^20.3.3",
     "@angular/router": "^20.3.3",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
+    "@ngrx/signals": "^20.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^1.21.2",
     "@angular/build": "^20.3.5",
     "@angular/cli": "^20.3.4",
     "@angular/compiler-cli": "^20.3.3",
-    "typescript": "~5.9.3",
-    "vitest": "^3.2.4",
-    "vite": "^7.1.9",
-    "@analogjs/vite-plugin-angular": "^1.21.2",
     "@types/node": "^24.7.2",
-    "jsdom": "^27.0.0"
+    "jsdom": "^27.0.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.9",
+    "vitest": "^3.2.4"
   }
 }

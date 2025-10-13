@@ -14,7 +14,7 @@ import {
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class AuthorizationService {
+export class AuthorizationClient {
     private readonly http = inject(HttpClient);
     private readonly baseUrl = `${environment.apiBaseUrl}/casbin`;
 

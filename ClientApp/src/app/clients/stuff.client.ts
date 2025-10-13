@@ -5,7 +5,7 @@ import { StuffDto, CreateStuffRequest, UpdateStuffRequest } from '../models';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class StuffService {
+export class StuffClient {
     private readonly http = inject(HttpClient);
     private readonly baseUrl = `${environment.apiBaseUrl}/api/stuffs`;
 

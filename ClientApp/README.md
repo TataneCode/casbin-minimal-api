@@ -66,18 +66,18 @@ import { StuffDto, NeighborResponse, UserInfo } from './app/models';
 Each service is `@Injectable({ providedIn: 'root' })` and uses `HttpClient`.
 
 ```ts
-import { StuffService } from './app/services';
-constructor(private stuffs: StuffService) {}
+import { StuffClient } from './app/clients';
+constructor(private stuffs: StuffClient) {}
 
 this.stuffs.getAll().subscribe(list => console.log(list));
 ```
 
 List of service methods:
 
-StuffService: `getAll()`, `getById(id)`, `create(body)`, `update(id, body)`, `delete(id)`
-NeighborService: same CRUD signature.
-AuthorizationService: `checkPermission`, `getRolesForUser`, `addRoleForUser`, `removeRoleForUser`, `getUsersForRole`, `addPermissionForRole`, `removePermissionForRole`
-OidcService: `challenge()`, `getSignedInInfo()`
+StuffClient: `getAll()`, `getById(id)`, `create(body)`, `update(id, body)`, `delete(id)`
+NeighborClient: same CRUD signature.
+AuthorizationClient: `checkPermission`, `getRolesForUser`, `addRoleForUser`, `removeRoleForUser`, `getUsersForRole`, `addPermissionForRole`, `removePermissionForRole`
+OidcClient: `challenge()`, `getSignedInInfo()`
 
 ### Configuration
 
@@ -85,7 +85,7 @@ The API base URL is defined in `src/environments/environment.ts` (`apiBaseUrl`).
 
 ### Notes
 
-Tests include a lightweight typing test for `StuffService`. For richer HTTP tests, provide mocks for `HttpClient` or switch to Angular's `provideHttpClientTesting` once added.
+Tests include a lightweight typing test for `StuffClient`. For richer HTTP tests, provide mocks for `HttpClient` or switch to Angular's `provideHttpClientTesting` once added.
 
 ## Running end-to-end tests
 

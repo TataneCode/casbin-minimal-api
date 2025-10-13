@@ -19,7 +19,10 @@
     "module": "ES2022",
     "baseUrl": ".",
     "paths": {
-      "@test-setup": ["src/test-setup.ts"]
+      "@test-setup": ["src/test-setup.ts"],
+      "@models": ["src/app/models/index.ts"],
+      "@clients": ["src/app/clients/index.ts"],
+      "@stores": ["src/app/stores/index.ts"]
     }
   },
   "angularCompilerOptions": {

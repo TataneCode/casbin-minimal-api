@@ -5,7 +5,7 @@ import { UserInfo } from '../models';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class OidcService {
+export class OidcClient {
     private readonly http = inject(HttpClient);
     private readonly baseUrl = `${environment.apiBaseUrl}/oidc`;
 

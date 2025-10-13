@@ -5,12 +5,17 @@ import { AppComponent } from './app.component';
 import { provideRouter, Router } from '@angular/router';
 import { routes } from './app.routes';
 import { By } from '@angular/platform-browser';
+import { NeighborClient } from '@clients';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter(routes)],
+      providers: [
+        provideRouter(routes),
+        { provide: NeighborClient, useValue: { getAll: () => of([]) } }
+      ],
     }).compileComponents();
   });
 

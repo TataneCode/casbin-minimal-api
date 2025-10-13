@@ -1,6 +1,8 @@
 import '@test-setup';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { NeighborClient } from '@clients';
 
 import { NeighborsComponent } from './neighbors.component';
 
@@ -10,7 +12,10 @@ describe('NeighborsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NeighborsComponent]
+      imports: [NeighborsComponent],
+      providers: [
+        { provide: NeighborClient, useValue: { getAll: () => of([]) } }
+      ]
     })
     .compileComponents();
 

@@ -14,4 +14,8 @@ internal static class ConfigurationKey
     internal const string DisabledTlsValidation = "DISABLE_TLS_VALIDATION";
     
     internal const string OpenIdEnabled = "OPENID_ENABLED";
+
+    // CORS (développement) dans appsettings
+    internal const string DevCorsPolicyName = "Cors:Development:PolicyName";
+    internal const string DevCorsOrigin = "Cors:Development:Origin";
 }

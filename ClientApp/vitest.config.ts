@@ -6,7 +6,10 @@ export default defineConfig({
   plugins: [angular()],
   resolve: {
     alias: [
-      { find: '@test-setup', replacement: path.resolve(__dirname, 'src', 'test-setup.ts') }
+      { find: '@test-setup', replacement: path.resolve(__dirname, 'src', 'test-setup.ts') },
+      { find: '@models', replacement: path.resolve(__dirname, 'src', 'app', 'models') },
+      { find: '@clients', replacement: path.resolve(__dirname, 'src', 'app', 'clients') },
+      { find: '@stores', replacement: path.resolve(__dirname, 'src', 'app', 'stores') },
     ],
   },
   test: {

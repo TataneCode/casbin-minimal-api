@@ -67,9 +67,7 @@
   background-color: var(--color-bg-hover);
 }
 .sidebar span:focus-visible {
-  outline-width: 0.125rem; /* 2px */
-  outline-style: solid;
-  outline-color: var(--color-border);
+  outline: var(--color-border) solid 0.125rem;
   outline-offset: 0.125rem; /* 2px */
 }
 .sidebar span.active {

@@ -5,7 +5,7 @@ import { NeighborResponse, CreateNeighborRequest, UpdateNeighborRequest } from '
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class NeighborService {
+export class NeighborClient {
     private readonly http = inject(HttpClient);
     private readonly baseUrl = `${environment.apiBaseUrl}/api/neighbors`;
 

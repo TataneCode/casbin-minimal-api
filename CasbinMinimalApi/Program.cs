@@ -14,6 +14,10 @@ builder.Services.AddOpenApi();
 builder.ConfigureDatabase();
 builder.ConfigureSecurity();
 builder.ConfigureCasbin();
+
+// Configure CORS via extension (dev only, values from appsettings)
+builder.ConfigureCors();
+
 builder.Services.ConfigureApplicationServices();
 
 var app = builder.Build();
@@ -23,6 +27,10 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+// Apply CORS if dev (policy read from config)
+app.UseCorsIfDevelopment();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCasbinAuthorization();
