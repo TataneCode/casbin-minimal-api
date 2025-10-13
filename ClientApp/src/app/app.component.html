@@ -1,46 +1,31 @@
-<div class="layout">
-  <mat-toolbar class="header mat-elevation-z4" color="primary">
-    <button mat-icon-button (click)="sidenav.toggle()" class="menu-btn">
-      <mat-icon>menu</mat-icon>
+<div class="layout" [class.sidebar-open]="showSidebar()">
+  <!-- Desktop header -->
+  <div class="header">
+    <span class="app-title">{{ appComponentText.header.title }}</span>
+    <span class="tagline">{{ appComponentText.header.tagline }}</span>
+  </div>
+
+  <!-- Mobile bar (replaces header on small screens) -->
+  <div class="mobile-bar">
+    <button type="button" class="menu-toggle" (click)="toggleSidebar()" aria-label="Toggle navigation" [attr.aria-expanded]="showSidebar()">
+      <span class="icon" aria-hidden="true">☰</span>
+      <span class="title">{{ appComponentText.header.title }}</span>
     </button>
+  </div>
 
-    <span class="title">{{ text.title }}</span>
-    <span class="spacer"></span>
-
-    <mat-slide-toggle
-      class="theme-toggle"
-      [checked]="darkMode()"
-      (change)="onThemeChange($event.checked)"
-      aria-label="Toggle theme"
-      color="accent"
-    >
-      <mat-icon>{{ darkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
-    </mat-slide-toggle>
-
-    <button mat-icon-button [attr.aria-label]="text.buttons.account">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-  </mat-toolbar>
-
-
-  <mat-sidenav-container class="main">
-    <mat-sidenav #sidenav mode="side" [opened]="true">
-      <nav class="menu">
-        <button mat-button routerLink="/" routerLinkActive="active">
-          {{ text.buttons.home }}
-        </button>
-        <button mat-button routerLink="/neighbors" routerLinkActive="active">
-          {{ text.buttons.neighbors }}
-        </button>
-        <button mat-button routerLink="/stuffs" routerLinkActive="active">
-          {{ text.buttons.stuffs }}
-        </button>
-      </nav>
-    </mat-sidenav>
-
-    <mat-sidenav-content class="content">
+  <div class="main">
+    <!-- Sidebar (overlay on mobile) -->
+    <nav class="sidebar" aria-label="Main navigation" [class.is-open]="showSidebar()">
+      <button type="button" class="close-btn" (click)="closeSidebar()" aria-label="Close navigation">×</button>
+      <span routerLink="/authentication" routerLinkActive="active" (click)="closeSidebar()">{{ appComponentText.menu.authentication }}</span>
+      <span routerLink="/neighbors" routerLinkActive="active" (click)="closeSidebar()">{{ appComponentText.menu.neighbors }}</span>
+      <span routerLink="/scissors" routerLinkActive="active" (click)="closeSidebar()">{{ appComponentText.menu.scissors }}</span>
+    </nav>
+    <div class="content" (click)="showSidebar() && closeSidebar()">
       <router-outlet></router-outlet>
-      <p>{{ text.mainContent }}</p>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </div>
+  </div>
+
+  <!-- Overlay backdrop for mobile when sidebar open -->
+  <div class="backdrop" *ngIf="showSidebar()" (click)="closeSidebar()" aria-hidden="true"></div>
 </div>

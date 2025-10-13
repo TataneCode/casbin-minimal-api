@@ -1,53 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* styles.scss (global) */
-
-/* quick: include a Material prebuilt theme so components ont un style correct */
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-
-/* fontes */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
-
-/* variables d'app (utilisées par les components) */
+/* Global variables */
 :root {
-  --app-surface: #ffffff;
-  --app-on-surface: #0f1720;
-  --app-primary: #6750a4;
-  --app-on-primary: #ffffff;
-  --app-surface-container-low: #f5f5f7;
-  --app-secondary-container: #e7def8;
-  --app-on-secondary-container: #21005d;
+  /* Colors */
+  --color-bg-body: #f5f6f8;
+  --color-bg-surface: #ffffff;
+  --color-border: #e0e3e8;
+  --color-bg-hover: #eef2f6;
+  --color-gradient-top: #fafbfc;
+  --color-gradient-bottom: #f5f6f8;
+
+  /* Sizes */
+  --sidebar-width: 15rem; /* 240px */
+  --header-height: 3.5rem; /* 56px */
+  --radius-sm: 0.25rem;
+
+  /* Shadows */
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.04);
 }
 
-/* Dark theme overrides (= global) */
-.dark-theme {
-  --app-surface: #121212;
-  --app-on-surface: #e0e0e0;
-  --app-primary: #90caf9;
-  --app-on-primary: #000000;
-  --app-surface-container-low: #1e1e1e;
-  --app-secondary-container: #333333;
-  --app-on-secondary-container: #ffffff;
-}
-
-/* apply the vars for body to get smooth transitions */
+/* Basic reset */
 body {
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  background-color: var(--app-surface);
-  color: var(--app-on-surface);
-  transition: background-color 300ms ease, color 300ms ease;
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: var(--color-bg-body);
+  color: #222;
 }
 
-/* Configure mat-icon to use Material Symbols */
-mat-icon {
-  font-family: 'Material Symbols Outlined';
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
-/* Petite aide pour le toggle (global) : icône + spacing */
-.mat-slide-toggle .mat-slide-toggle-content {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+* {
+  box-sizing: border-box;
 }

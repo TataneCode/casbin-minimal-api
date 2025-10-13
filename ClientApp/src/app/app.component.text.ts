@@ -1,16 +1,16 @@
 // app.component.text.ts
+// Centralized application texts
 export const appComponentText = {
-  mainContent: 'Welcome in the main content 🎉',
-  buttons: {
-    home: 'Home',
+  header: {
+    title: 'Casbin client',
+    tagline: 'Something in the header',
+  },
+  menu: {
+    authentication: 'Authentication',
     neighbors: 'Neighbors',
-    stuffs: 'Stuffs',
-    account: 'User account',
+    scissors: 'Scissors',
   },
-  theme: {
-    light: '☀️',
-    dark: '🌙',
+  content: {
+    welcome: 'Welcome to the main content \uD83C\uDF89',
   },
-  title: 'My Application',
 };
-
