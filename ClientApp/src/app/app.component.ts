@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
 import { appComponentText } from './app.component.text';
 
 @Component({
@@ -20,6 +19,13 @@ export class AppComponent {
 
   // Sidebar open state for mobile
   readonly showSidebar = signal(false);
+
+  constructor() {
+    // Explicit usage to avoid unused import warning
+    if (!appComponentText.header.title) {
+      console.warn('Header title missing');
+    }
+  }
 
   toggleSidebar() {
     this.showSidebar.update(v => !v);

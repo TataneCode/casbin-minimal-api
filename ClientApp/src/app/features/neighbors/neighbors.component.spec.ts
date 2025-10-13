@@ -20,4 +20,10 @@ describe('NeighborsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render heading and paragraph', () => {
+    const compiled: HTMLElement = fixture.nativeElement;
+    expect(compiled.querySelector('h2')?.textContent).toContain('Neighbors');
+    expect(compiled.querySelector('p')?.textContent).toContain('neighbor');
+  });
 });
