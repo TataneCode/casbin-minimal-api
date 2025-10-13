@@ -22,13 +22,13 @@ public static class NeighborEndpoints
     return group;
   }
 
-  private static async Task<Ok<IEnumerable<NeighborDto>>> GetAllAsync(INeighborRepository repo)
+  private static async Task<Ok<IEnumerable<NeighborResponse>>> GetAllAsync(INeighborRepository repo)
   {
     var items = await repo.GetAllAsync();
     return TypedResults.Ok(items.Select(NeighborMappers.ToDto));
   }
 
-  private static async Task<Results<Ok<NeighborDto>, NotFound>> GetByIdAsync(long id, INeighborRepository repo)
+  private static async Task<Results<Ok<NeighborResponse>, NotFound>> GetByIdAsync(long id, INeighborRepository repo)
   {
     var entity = await repo.GetByIdAsync(id);
     return entity is null
@@ -36,7 +36,7 @@ public static class NeighborEndpoints
         : TypedResults.Ok(NeighborMappers.ToDto(entity));
   }
 
-  private static async Task<Results<Created<NeighborDto>, BadRequest<string>, ForbidHttpResult>> CreateAsync(
+  private static async Task<Results<Created<NeighborResponse>, BadRequest<string>, ForbidHttpResult>> CreateAsync(
       CreateNeighborRequest request,
       INeighborRepository repo,
       IAuthorizationService authService)
@@ -61,7 +61,7 @@ public static class NeighborEndpoints
     return TypedResults.Created($"/api/neighbors/{entity.Id}", dto);
   }
 
-  private static async Task<Results<Ok<NeighborDto>, NotFound, BadRequest<string>, ForbidHttpResult>> UpdateAsync(
+  private static async Task<Results<Ok<NeighborResponse>, NotFound, BadRequest<string>, ForbidHttpResult>> UpdateAsync(
       long id,
       UpdateNeighborRequest request,
       INeighborRepository repo,

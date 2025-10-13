@@ -64,9 +64,9 @@ public static class AuthorizationEndpoints
   }
 
   // Handlers
-  private static async Task<IResult> CheckPermissionAsync([AsParameters] PermissionQuery query, IAuthorizationService service)
+  private static async Task<IResult> CheckPermissionAsync([AsParameters] PermissionRequest request, IAuthorizationService service)
   {
-    var allowed = await service.HasPermissionAsync(query.Resource, query.Action, query.User);
+    var allowed = await service.HasPermissionAsync(request.Resource, request.Action, request.User);
     return Results.Ok(new PermissionCheckResponse(allowed));
   }
 
@@ -104,7 +104,7 @@ public static class AuthorizationEndpoints
     return Results.Ok(new PermissionAddedResponse(added));
   }
 
-  private static async Task<IResult> RemovePermissionForRoleAsync(string role, [AsParameters] PermissionBodyOrQuery query, IAuthorizationService service)
+  private static async Task<IResult> RemovePermissionForRoleAsync(string role, [AsParameters] PermissionBodyRequest query, IAuthorizationService service)
   {
     if (string.IsNullOrWhiteSpace(query.Resource) || string.IsNullOrWhiteSpace(query.Action))
     {
