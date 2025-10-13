@@ -1,5 +1,6 @@
 using CasbinMinimalApi.Domain;
 using CasbinMinimalApi.Endpoints.Authorization;
+using CasbinMinimalApi.Endpoints.Neighbors;
 using CasbinMinimalApi.Endpoints.Oidc;
 
 namespace CasbinMinimalApi.Endpoints;
