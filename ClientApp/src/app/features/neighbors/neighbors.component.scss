@@ -28,6 +28,28 @@
     color: var(--color-text-muted);
   }
 
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .address-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+
+    .line {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  /* Legacy table styles kept commented for reference
   .data-table {
     width: 100%;
     border-collapse: separate;
@@ -61,4 +83,5 @@
       border-bottom: 0;
     }
   }
+  */
 }

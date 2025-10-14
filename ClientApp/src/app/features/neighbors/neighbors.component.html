@@ -9,32 +9,17 @@
       } @else if (error()) {
         <div class="status error">{{ text.table.errorPrefix }}{{ error() }}</div>
       } @else {
-        @if (neighbors().length) {
-          <table class="data-table">
-            <caption>{{ text.table.caption }}</caption>
-            <thead>
-              <tr>
-                <th scope="col">{{ text.table.headers.id }}</th>
-                <th scope="col">{{ text.table.headers.name }}</th>
-                <th scope="col">{{ text.table.headers.email }}</th>
-                <th scope="col">{{ text.table.headers.street }}</th>
-                <th scope="col">{{ text.table.headers.city }}</th>
-                <th scope="col">{{ text.table.headers.zip }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (n of neighbors(); track $index) {
-                <tr>
-                  <td>{{ n.id }}</td>
-                  <td>{{ n.name }}</td>
-                  <td>{{ n.email }}</td>
-                  <td>{{ n.address?.street || '' }}</td>
-                  <td>{{ n.address?.city || '' }}</td>
-                  <td>{{ n.address?.zipCode || '' }}</td>
-                </tr>
-              }
-            </tbody>
-          </table>
+        @if (neighborsCards().length) {
+          <div class="cards-grid" role="list" aria-label="{{ text.table.caption }}">
+            @for (c of neighborsCards(); track $index) {
+              <app-entity-card role="listitem" [title]="c.name" [subtitle]="c.email" [imageUrl]="c.imageUrl" [imageAlt]="c.name">
+                <div class="address-lines">
+                  <span class="line">{{ c.addressLine }}</span>
+                  <span class="line">{{ c.cityZip }}</span>
+                </div>
+              </app-entity-card>
+            }
+          </div>
         } @else {
           <div class="status empty">{{ text.table.empty }}</div>
         }

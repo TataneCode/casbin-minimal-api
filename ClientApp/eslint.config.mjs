@@ -65,7 +65,8 @@ export default [
       'no-new-wrappers': 'error',
       'no-var': 'error',
       'prefer-const': ['error', { destructuring: 'all' }],
-      'prefer-template': 'error'
+      'prefer-template': 'error',
+      'semi': ['error', 'always']
     }
   },
   {

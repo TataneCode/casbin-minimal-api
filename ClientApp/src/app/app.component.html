@@ -3,14 +3,25 @@
   <div class="header">
     <span class="app-title">{{ appComponentText.header.title }}</span>
     <span class="tagline">{{ appComponentText.header.tagline }}</span>
+    <div class="spacer"></div>
+    <button type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="theme() === 'dark' ? appComponentText.header.lightModeLabel : appComponentText.header.darkModeLabel" [attr.aria-pressed]="theme() === 'dark'">
+      <i class="fa-solid" [class.fa-moon]="theme() !== 'dark'" [class.fa-sun]="theme() === 'dark'" aria-hidden="true"></i>
+      <span class="visually-hidden">{{ theme() === 'dark' ? appComponentText.header.lightModeLabel : appComponentText.header.darkModeLabel }}</span>
+    </button>
   </div>
 
   <!-- Mobile bar (replaces header on small screens) -->
   <div class="mobile-bar">
-    <button type="button" class="menu-toggle" (click)="toggleSidebar()" aria-label="Toggle navigation" [attr.aria-expanded]="showSidebar()">
-      <span class="icon" aria-hidden="true">☰</span>
-      <span class="title">{{ appComponentText.header.title }}</span>
-    </button>
+    <div class="mobile-bar-inner">
+      <button type="button" class="menu-toggle" (click)="toggleSidebar()" aria-label="Toggle navigation" [attr.aria-expanded]="showSidebar()">
+        <span class="icon" aria-hidden="true">☰</span>
+        <span class="title">{{ appComponentText.header.title }}</span>
+      </button>
+      <button type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="theme() === 'dark' ? appComponentText.header.lightModeLabel : appComponentText.header.darkModeLabel" [attr.aria-pressed]="theme() === 'dark'">
+        <i class="fa-solid" [class.fa-moon]="theme() !== 'dark'" [class.fa-sun]="theme() === 'dark'" aria-hidden="true"></i>
+        <span class="visually-hidden">{{ theme() === 'dark' ? appComponentText.header.lightModeLabel : appComponentText.header.darkModeLabel }}</span>
+      </button>
+    </div>
   </div>
 
   <div class="main">

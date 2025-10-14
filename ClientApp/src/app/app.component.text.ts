@@ -4,6 +4,8 @@ export const appComponentText = {
   header: {
     title: 'Casbin client',
     tagline: 'Something in the header',
+    darkModeLabel: 'Enable dark theme',
+    lightModeLabel: 'Enable light theme',
   },
   menu: {
     authentication: 'Authentication',
