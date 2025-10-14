@@ -4,6 +4,10 @@
     <span class="app-title">{{ appComponentText.header.title }}</span>
     <span class="tagline">{{ appComponentText.header.tagline }}</span>
     <div class="spacer"></div>
+    <button type="button" class="auth-btn" routerLink="/authentication" routerLinkActive="active" [attr.aria-label]="appComponentText.menu.authentication">
+      <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+      <span class="auth-label">{{ appComponentText.menu.authentication }}</span>
+    </button>
     <button type="button" class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="theme() === 'dark' ? appComponentText.header.lightModeLabel : appComponentText.header.darkModeLabel" [attr.aria-pressed]="theme() === 'dark'">
       <i class="fa-solid" [class.fa-moon]="theme() !== 'dark'" [class.fa-sun]="theme() === 'dark'" aria-hidden="true"></i>
       <span class="visually-hidden">{{ theme() === 'dark' ? appComponentText.header.lightModeLabel : appComponentText.header.darkModeLabel }}</span>
@@ -28,9 +32,9 @@
     <!-- Sidebar (overlay on mobile) -->
     <nav class="sidebar" aria-label="Main navigation" [class.is-open]="showSidebar()">
       <button type="button" class="close-btn" (click)="closeSidebar()" aria-label="Close navigation">×</button>
-      <span routerLink="/authentication" routerLinkActive="active" (click)="closeSidebar()">{{ appComponentText.menu.authentication }}</span>
       <span routerLink="/neighbors" routerLinkActive="active" (click)="closeSidebar()">{{ appComponentText.menu.neighbors }}</span>
       <span routerLink="/scissors" routerLinkActive="active" (click)="closeSidebar()">{{ appComponentText.menu.scissors }}</span>
+      <span routerLink="/stuffs" routerLinkActive="active" (click)="closeSidebar()">{{ appComponentText.menu.stuffs }}</span>
     </nav>
     <div class="content" (click)="showSidebar() && closeSidebar()">
       <router-outlet></router-outlet>

@@ -3,7 +3,7 @@
     @if (imageUrl) {
       <img width="56" height="56" [ngSrc]="imageUrl" [alt]="imageAlt || title" loading="lazy" />
     } @else {
-      <i class="fa-solid fa-user" aria-hidden="true"></i>
+      <i class="fa-solid" [class]="'fa-solid ' + fallbackIcon" aria-hidden="true"></i>
     }
   </div>
   <div class="content">

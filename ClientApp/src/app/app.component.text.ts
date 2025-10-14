@@ -11,6 +11,7 @@ export const appComponentText = {
     authentication: 'Authentication',
     neighbors: 'Neighbors',
     scissors: 'Scissors',
+    stuffs: 'Stuffs',
   },
   content: {
     welcome: 'Welcome to the main content \uD83C\uDF89',

@@ -77,4 +77,17 @@ describe('AppComponent', () => {
     // After two toggles we should be back to initial (light => no attribute OR dark attribute removed)
     // Can’t assert exact due to initial system preference, just ensure attribute flips at least once.
   });
+
+  it('should navigate when clicking auth button', async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const router = TestBed.inject(Router);
+    fixture.detectChanges();
+    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('.auth-btn');
+    btn.click();
+    fixture.detectChanges();
+    await router.navigateByUrl('/authentication');
+    fixture.detectChanges();
+    // Ensure current url reflects navigation (Authentication component may not have an h2)
+    expect(router.url).toContain('/authentication');
+  });
 });

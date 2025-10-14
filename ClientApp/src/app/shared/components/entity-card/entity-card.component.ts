@@ -15,4 +15,5 @@ export class EntityCardComponent {
   @Input() imageUrl: string | null = null;
   @Input() imageAlt: string | null = null;
   @Input() hasFooter = false;
+  @Input() fallbackIcon = 'fa-user';
 }

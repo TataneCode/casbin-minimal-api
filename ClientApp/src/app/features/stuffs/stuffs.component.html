@@ -1,0 +1,29 @@
+<section class="stuffs-section">
+  <h2>{{ text.heading }}</h2>
+  <p>{{ text.intro }}</p>
+
+  <div class="panel">
+    <div class="panel-body">
+      @if (loading()) {
+        <div class="status loading">{{ text.list.loading }}</div>
+      } @else if (error()) {
+        <div class="status error">{{ text.list.errorPrefix }}{{ error() }}</div>
+      } @else {
+        @if (stuffCards().length) {
+          <div class="cards-grid" role="list" aria-label="{{ text.list.caption }}">
+            @for (c of stuffCards(); track $index) {
+              <app-entity-card role="listitem" [title]="c.name" [subtitle]="c.description" fallbackIcon="fa-box">
+                <div class="meta">
+                  <span class="label">Neighbor ID:</span> {{ c.neighborId }}
+                </div>
+              </app-entity-card>
+            }
+          </div>
+        } @else {
+          <div class="status empty">{{ text.list.empty }}</div>
+        }
+      }
+    </div>
+  </div>
+</section>
+
