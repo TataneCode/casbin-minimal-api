@@ -1,5 +1,47 @@
-<section>
-  <h2>Scissors</h2>
-  <p>Tools and utilities related to scissors features.</p>
-</section>
+<section class="scissors-section">
+  <h2>{{ text.heading }}</h2>
+  <p>{{ text.intro }}</p>
 
+  <div class="toolbar" role="toolbar" aria-label="Tree controls">
+    <button type="button" (click)="expandAll()" class="btn" data-cy="expand-all">{{ text.controls.expandAll }}</button>
+    <button type="button" (click)="collapseAll()" class="btn" data-cy="collapse-all">{{ text.controls.collapseAll }}</button>
+  </div>
+
+  @if (loading()) {
+    <div class="status loading">{{ text.state.loading }}</div>
+  } @else if (error()) {
+    <div class="status error">{{ text.state.errorPrefix }}{{ error() }}</div>
+  } @else {
+    @if (tree().length === 0) {
+      <div class="status empty">{{ text.state.emptyNeighbors }}</div>
+    } @else {
+      <ul class="tree" role="tree" aria-label="Neighbors and their stuffs">
+        @for (node of tree(); track node.neighbor.id) {
+          <li role="treeitem" [attr.aria-expanded]="isExpanded(node.neighbor.id)" class="neighbor-node" [class.is-expanded]="isExpanded(node.neighbor.id)">
+            <div class="neighbor-row">
+              <button type="button" class="toggle" (click)="toggle(node.neighbor.id)" [attr.aria-label]="isExpanded(node.neighbor.id) ? 'Collapse' : 'Expand'" [attr.aria-expanded]="isExpanded(node.neighbor.id)">
+                <span class="chevron" [class.expanded]="isExpanded(node.neighbor.id)" aria-hidden="true">▸</span>
+              </button>
+              <span class="neighbor-name">{{ node.neighbor.name }}</span>
+              <span class="count-pill">{{ text.neighbor.stuffsCount(node.stuffs.length) }}</span>
+            </div>
+            @if (isExpanded(node.neighbor.id)) {
+              <ul class="stuffs" role="group">
+                @if (node.stuffs.length === 0) {
+                  <li class="stuff-item none">{{ text.neighbor.noStuffs }}</li>
+                } @else {
+                  @for (s of node.stuffs; track s.id) {
+                    <li class="stuff-item">
+                      <span class="stuff-name">{{ s.name }}</span>
+                      <span class="stuff-desc">{{ s.description }}</span>
+                    </li>
+                  }
+                }
+              </ul>
+            }
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>
