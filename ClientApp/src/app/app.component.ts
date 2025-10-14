@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { appComponentText } from './app.component.text';
@@ -11,7 +11,8 @@ import { appComponentText } from './app.component.text';
     RouterModule,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   // Centralized texts exposed directly
@@ -27,10 +28,10 @@ export class AppComponent {
     }
   }
 
-  toggleSidebar() {
+  toggleSidebar(): void {
     this.showSidebar.update(v => !v);
   }
-  closeSidebar() {
+  closeSidebar(): void {
     this.showSidebar.set(false);
   }
 }

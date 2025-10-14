@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 // Since StuffClient uses inject(), full DI setup is complex in unit test context without TestBed.
 // We perform a lightweight sanity check on interface typing instead.
-import { StuffDto } from '../models';
+import type { StuffDto } from '../models';
 
 describe('StuffClient (typing)', () => {
     it('StuffDto should have required fields', () => {

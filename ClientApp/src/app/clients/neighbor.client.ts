@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { NeighborResponse, CreateNeighborRequest, UpdateNeighborRequest } from '../models';
-import { Observable } from 'rxjs';
+import type { NeighborResponse, CreateNeighborRequest, UpdateNeighborRequest } from '../models';
+import type { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class NeighborClient {

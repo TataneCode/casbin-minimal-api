@@ -2,15 +2,16 @@
 :root {
   /* Colors */
   --color-bg-body: #f5f6f8;
-  --color-bg-surface: #ffffff;
+  --color-bg-surface: #fff;
   --color-border: #e0e3e8;
   --color-bg-hover: #eef2f6;
   --color-gradient-top: #fafbfc;
   --color-gradient-bottom: #f5f6f8;
+
   /* Text Colors */
-  --color-text-body: #222222;
-  --color-text-muted: #555555;
-  --color-text-caption: #444444;
+  --color-text-body: #222;
+  --color-text-muted: #555;
+  --color-text-caption: #444;
   --color-text-error: #a40000;
 
   /* Sizes */
@@ -19,7 +20,7 @@
   --radius-sm: 0.25rem;
 
   /* Shadows */
-  --shadow-sm: 0 0.125rem 0.25rem rgba(0,0,0,0.04);
+  --shadow-sm: 0 0.125rem 0.25rem rgb(0 0 0 / 4%);
 }
 
 /* Basic reset */

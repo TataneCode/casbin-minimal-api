@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { NeighborClient } from '@clients';
-import { NeighborResponse } from '@models';
+import type { NeighborResponse } from '@models';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
 export interface NeighborState {

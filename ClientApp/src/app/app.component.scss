@@ -4,7 +4,7 @@
   display: grid;
   grid-template-rows: auto 1fr;
   background-color: var(--color-bg-body);
-  color: #222;
+  color: var(--color-text-body);
 }
 
 /* Sticky header */
@@ -66,10 +66,12 @@
 .sidebar span:hover {
   background-color: var(--color-bg-hover);
 }
+
 .sidebar span:focus-visible {
   outline: var(--color-border) solid 0.125rem;
   outline-offset: 0.125rem; /* 2px */
 }
+
 .sidebar span.active {
   background-color: var(--color-bg-hover);
   font-weight: 600;
@@ -86,6 +88,7 @@
 .mobile-bar {
   display: none;
 }
+
 .menu-toggle {
   appearance: none;
   border: none;
@@ -99,13 +102,16 @@
   cursor: pointer;
   border-bottom: 0.0625rem solid var(--color-border);
 }
+
 .menu-toggle:hover {
   background-color: var(--color-bg-hover);
 }
+
 .menu-toggle .icon {
   font-size: 1.25rem;
   line-height: 1;
 }
+
 .menu-toggle .title {
   font-weight: 600;
 }
@@ -114,7 +120,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgb(0 0 0 / 35%);
   backdrop-filter: blur(2px);
   z-index: 90;
 }
@@ -130,18 +136,27 @@
   cursor: pointer;
   line-height: 1;
 }
+
 .close-btn:hover {
   color: #000;
 }
 
-@media (max-width: 48rem) { /* 768px */
-  /* Hide desktop header, show mobile bar */
-  .header { display: none; }
-  .mobile-bar { display: block; position: sticky; top: 0; z-index: 110; }
+@media (width <= 48rem) {
+  .header {
+    display: none;
+  }
+
+  .mobile-bar {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 110;
+  }
 
   .main {
-    grid-template-columns: 1fr; /* sidebar becomes overlay */
+    grid-template-columns: 1fr;
   }
+
   .sidebar {
     position: fixed;
     top: 0;
@@ -156,14 +171,20 @@
     border-bottom: none;
     padding-top: 3.5rem; /* space under mobile bar */
   }
+
   .sidebar.is-open {
     transform: translateX(0);
   }
-  .sidebar span { flex: initial; }
-  .close-btn { display: block; }
+
+  .sidebar span {
+    flex: initial;
+  }
+
+  .close-btn {
+    display: block;
+  }
 }
 
-/* Accessibility: reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .sidebar { transition: none; }
 }

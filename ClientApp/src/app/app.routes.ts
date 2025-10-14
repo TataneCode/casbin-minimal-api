@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 import { AuthenticationComponent } from './core/authentication/authentication.component';
 import { NeighborsComponent } from './features/neighbors/neighbors.component';
 import { ScissorsComponent } from './features/scissors/scissors.component';

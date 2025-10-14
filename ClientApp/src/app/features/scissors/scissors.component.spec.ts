@@ -1,6 +1,6 @@
 import '@test-setup';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
 
 import { ScissorsComponent } from './scissors.component';
 

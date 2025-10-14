@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import {
+import type {
     PermissionCheckResponse,
     RoleAssignmentResponse,
     RoleRemovalResponse,
@@ -11,7 +11,7 @@ import {
     AddPermissionRequest,
     PermissionBodyRequest
 } from '../models';
-import { Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorizationClient {

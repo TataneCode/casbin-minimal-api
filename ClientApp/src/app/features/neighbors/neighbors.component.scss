@@ -19,9 +19,11 @@
   .status.loading {
     color: var(--color-text-muted);
   }
+
   .status.error {
     color: var(--color-text-error);
   }
+
   .status.empty {
     color: var(--color-text-muted);
   }
