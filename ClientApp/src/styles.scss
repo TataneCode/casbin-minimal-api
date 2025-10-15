@@ -1,28 +1,27 @@
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
 /* THEME VARIABLES */
 :root {
   /* Light Theme Colors */
   --color-bg-body: #f5f6f8;
-  --color-bg-surface: #ffffff;
+  --color-bg-surface: #fff;
   --color-border: #e0e3e8;
   --color-bg-hover: #eef2f6;
   --color-gradient-top: #fafbfc;
   --color-gradient-bottom: #f5f6f8;
-
   --color-accent: #4f46e5;
   --color-accent-hover: #4338ca;
   --color-accent-active: #3730a3;
-  --color-accent-contrast: #ffffff;
-
-  --color-text-body: #222222;
-  --color-text-muted: #555555;
-  --color-text-caption: #444444;
+  --color-accent-contrast: #fff;
+  --color-text-body: #222;
+  --color-text-muted: #555;
+  --color-text-caption: #444;
   --color-text-error: #a40000;
   --color-focus-ring: #7c6cff;
-
   --sidebar-width: 15rem;
   --header-height: 3.5rem;
   --radius-sm: 0.25rem;
-  --shadow-sm: 0 0.125rem 0.25rem rgba(0 0 0 / 8%);
+  --shadow-sm: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
 }
 
 :root[data-theme='dark'] {
@@ -32,38 +31,72 @@
   --color-bg-hover: #31343d;
   --color-gradient-top: #2a2d35;
   --color-gradient-bottom: #23252b;
-
   --color-accent: #7c4dff;
   --color-accent-hover: #6f43e6;
   --color-accent-active: #6239cc;
-  --color-accent-contrast: #ffffff;
-
+  --color-accent-contrast: #fff;
   --color-text-body: #f5f6fa;
   --color-text-muted: #b0b3bb;
   --color-text-caption: #c7c9d1;
   --color-text-error: #ff5f56;
   --color-focus-ring: #a884ff;
+  --shadow-sm: 0 0.25rem 0.75rem rgb(0 0 0 / 40%);
+}
 
-  --shadow-sm: 0 0.25rem 0.75rem rgba(0 0 0 / 40%);
+/* Basic reset */
+* {
+  box-sizing: border-box;
 }
 
 /* Focus outline for accessibility */
-:root *:focus-visible { outline: 0.125rem solid var(--color-focus-ring); outline-offset: 0.125rem; }
+:root *:focus-visible {
+  outline: 0.125rem solid var(--color-focus-ring);
+  outline-offset: 0.125rem;
+}
 
-.accent { color: var(--color-accent); }
-.bg-accent { background: var(--color-accent); color: var(--color-accent-contrast); }
-.bg-accent:hover { background: var(--color-accent-hover); }
-.bg-accent:active { background: var(--color-accent-active); }
+.accent {
+  color: var(--color-accent);
+}
 
-.entity-card .title { color: var(--color-text-body); }
-.entity-card .subtitle { color: var(--color-text-muted); }
+.bg-accent {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
 
-body, .entity-card, .panel { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
+.bg-accent:hover {
+  background: var(--color-accent-hover);
+}
+
+.bg-accent:active {
+  background: var(--color-accent-active);
+}
+
+.entity-card .title {
+  color: var(--color-text-body);
+}
+
+.entity-card .subtitle {
+  color: var(--color-text-muted);
+}
+
+body, .entity-card, .panel {
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
 
 /* Utility: visually hidden */
-.visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; white-space: nowrap !important; border: 0 !important; }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
 
-@import '@fortawesome/fontawesome-free/css/all.min.css';
+  /* clip removed (deprecated) */
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 
 /* Basic reset */
 body {
@@ -71,8 +104,4 @@ body {
   font-family: system-ui, Arial, sans-serif;
   background: var(--color-bg-body);
   color: var(--color-text-body);
-}
-
-* {
-  box-sizing: border-box;
 }
