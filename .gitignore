@@ -5,3 +5,13 @@ riderModule.iml
 /_ReSharper.Caches/
 .idea/
 .env/secret.env
+# ClientNext (Next.js) build artifacts
+ClientNext/.next/
+ClientNext/node_modules/
+ClientNext/.env.local
+ClientNext/.env.*.local
+ClientNext/.turbo/
+ClientNext/coverage/
+ClientNext/*.log
+ClientNext/.eslintcache
+ClientNext/.DS_Store

@@ -1,0 +1,16 @@
+# Next.js build output
+.next/
+# Node modules
+node_modules/
+# Env files
+.env.local
+.env.*.local
+# Logs
+*.log
+# Coverage
+coverage/
+# Turbopack / build cache
+.turbo/
+# Editor
+.DS_Store
+.eslintcache
