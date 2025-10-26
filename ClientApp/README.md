@@ -97,6 +97,61 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Docker (production)
+
+This app ships with a production-ready multi-stage Dockerfile using Nginx.
+
+Notes:
+- Tests and test tooling are excluded from the Docker image: the Dockerfile only copies build essentials and .dockerignore excludes specs and coverage.
+- Output path is dist/client-app as configured in angular.json.
+
+### Build (simple, no buildx)
+
+Run these from the ClientApp directory:
+
+```bash
+# Build the production image (local arch)
+docker build -t tatanecode/casbin-client:latest -f Dockerfile .
+```
+
+### Publish to Docker Hub (tatanecode)
+
+```bash
+# Authenticate (enter your Docker Hub password or token when prompted)
+docker login -u tatanecode
+
+# Optionally tag a version in addition to latest
+VERSION=1.0.0
+
+docker tag tatanecode/casbin-client:latest tatanecode/casbin-client:${VERSION}
+
+ ${VERSION}
+docker push tatanecode/casbin-client:latest
+```
+
+### Run the container locally
+
+```bash
+# Map host port 8080 to container port 80 (Nginx)
+docker run -d --rm \
+  -p 8080:80 \
+  --name casbin-client \
+  tatanecode/casbin-client:latest
+
+# Open http://localhost:8080
+```
+
+Stop the container:
+
+```bash
+docker stop casbin-client
+```
+
+### Troubleshooting
+
+- If you change outputPath in angular.json, update the COPY path in Dockerfile accordingly.
+- If you get a 404 on client-side routes, confirm nginx.conf is copied and includes `try_files ... /index.html`.
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
