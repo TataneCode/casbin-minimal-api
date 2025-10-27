@@ -9,7 +9,7 @@ public static class StuffEndpoints
 {
   public static RouteGroupBuilder MapStuffEndpoints(this IEndpointRouteBuilder app)
   {
-    var group = app.MapGroup("/api/stuffs")
+    var group = app.MapGroup("/stuffs")
         .WithTags("Stuffs");
 
     group.MapGet("/", GetAllAsync);

@@ -10,7 +10,7 @@ public static class NeighborEndpoints
 {
   public static RouteGroupBuilder MapNeighborEndpoints(this IEndpointRouteBuilder app)
   {
-    var group = app.MapGroup("/api/neighbors")
+    var group = app.MapGroup("/neighbors")
         .WithTags("Neighbors");
     
     group.MapGet("/", GetAllAsync);

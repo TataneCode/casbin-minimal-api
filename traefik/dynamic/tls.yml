@@ -1,0 +1,14 @@
+tls:
+  certificates:
+    - certFile: /certs/prod.casbin.crt
+      keyFile: /certs/prod.casbin.key
+  options:
+    default:
+      minVersion: VersionTLS12
+      sniStrict: true
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /certs/prod.casbin.crt
+        keyFile: /certs/prod.casbin.key
+

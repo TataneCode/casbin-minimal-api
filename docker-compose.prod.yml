@@ -1,0 +1,60 @@
+services:
+  proxy:
+    image: traefik:v3.0
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.watch=true
+      - --entrypoints.websecure.address=:9443
+      - --log.level=INFO
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/dynamic:/etc/traefik/dynamic:ro
+      - ./traefik/certs:/certs:ro
+
+  api:
+    image: tatanecode/casbin-minimal-api:latest
+    env_file:
+      - .env/api.env
+      - .env/secret.env
+    depends_on:
+      - proxy
+      - pgsql
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.api-https.rule=Host(`prod.casbin`) && PathPrefix(`/api`)
+      - traefik.http.routers.api-https.entrypoints=websecure
+      - traefik.http.routers.api-https.tls=true
+      - traefik.http.routers.api-https.priority=100
+      - traefik.http.services.api.loadbalancer.server.port=8080
+
+  # PostgreSQL database (internal only)
+  pgsql:
+    image: postgres:17
+    env_file:
+      - .env/pg.env
+    volumes:
+      - pg-data-prod:/var/lib/postgresql/data
+
+  frontend:
+    image: tatanecode/casbin-minimal-api-frontend:latest
+    depends_on:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.front-https.rule=Host(`prod.casbin`)
+      - traefik.http.routers.front-https.entrypoints=websecure
+      - traefik.http.routers.front-https.tls=true
+      - traefik.http.routers.front-https.priority=10
+      - traefik.http.services.front.loadbalancer.server.port=80
+
+networks:
+  default:
+    name: casbin-prod
+    driver: bridge
+
+volumes:
+  pg-data-prod: {}
