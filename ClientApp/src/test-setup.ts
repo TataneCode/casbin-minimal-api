@@ -8,9 +8,9 @@ const GLOBAL_FLAG = '__ngTestEnvInit' as const;
 const g = globalThis as Record<string, unknown>;
 
 if (!g[GLOBAL_FLAG]) {
-  const testBed = getTestBed();
-  testBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting(), {
-    teardown: { destroyAfterEach: true }
-  });
-  (g as Record<string, boolean>)[GLOBAL_FLAG] = true;
+    const testBed = getTestBed();
+    testBed.initTestEnvironment(BrowserTestingModule, platformBrowserTesting(), {
+        teardown: { destroyAfterEach: true }
+    });
+    (g as Record<string, boolean>)[GLOBAL_FLAG] = true;
 }

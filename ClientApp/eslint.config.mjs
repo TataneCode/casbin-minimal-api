@@ -66,7 +66,11 @@ export default [
       'no-var': 'error',
       'prefer-const': ['error', { destructuring: 'all' }],
       'prefer-template': 'error',
-      'semi': ['error', 'always']
+      'semi': ['error', 'always'],
+
+      // Formatting per request
+      'indent': ['error', 4, { SwitchCase: 1, VariableDeclarator: 1, outerIIFEBody: 1 }],
+      'object-curly-spacing': ['error', 'always']
     }
   },
   {

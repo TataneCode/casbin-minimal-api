@@ -7,7 +7,7 @@ import type { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class StuffClient {
     private readonly http = inject(HttpClient);
-    private readonly baseUrl = `${environment.apiBaseUrl}/api/stuffs`;
+    private readonly baseUrl = `${environment.apiBaseUrl}/stuffs`;
 
     getAll(): Observable<StuffDto[]> {
         return this.http.get<StuffDto[]>(this.baseUrl);

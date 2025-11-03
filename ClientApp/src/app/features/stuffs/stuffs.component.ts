@@ -12,28 +12,28 @@ interface StuffCardModel {
 }
 
 @Component({
-  selector: 'app-stuffs',
-  standalone: true,
-  imports: [CommonModule, EntityCardComponent],
-  templateUrl: './stuffs.component.html',
-  styleUrls: ['./stuffs.component.scss'],
-  providers: [StuffStore],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-stuffs',
+    standalone: true,
+    imports: [CommonModule, EntityCardComponent],
+    templateUrl: './stuffs.component.html',
+    styleUrls: ['./stuffs.component.scss'],
+    providers: [StuffStore],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StuffsComponent implements OnInit {
-  readonly store = inject(StuffStore);
-  readonly text = stuffsText;
+    readonly store = inject(StuffStore);
+    readonly text = stuffsText;
 
-  readonly stuffs = computed(() => this.store.stuffs());
-  readonly loading = computed(() => this.store.loading());
-  readonly error = computed(() => this.store.error());
-  readonly stuffCards = computed<StuffCardModel[]>(() => this.stuffs().map(s => ({
-    name: s.name,
-    description: s.description,
-    neighborId: s.neighborId,
-  })));
+    readonly stuffs = computed(() => this.store.stuffs());
+    readonly loading = computed(() => this.store.loading());
+    readonly error = computed(() => this.store.error());
+    readonly stuffCards = computed<StuffCardModel[]>(() => this.stuffs().map(s => ({
+        name: s.name,
+        description: s.description,
+        neighborId: s.neighborId,
+    })));
 
-  ngOnInit(): void {
-    this.store.loadStuffs();
-  }
+    ngOnInit(): void {
+        this.store.loadStuffs();
+    }
 }

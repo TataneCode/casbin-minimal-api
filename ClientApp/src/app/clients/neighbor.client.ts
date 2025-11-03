@@ -7,7 +7,7 @@ import type { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class NeighborClient {
     private readonly http = inject(HttpClient);
-    private readonly baseUrl = `${environment.apiBaseUrl}/api/neighbors`;
+    private readonly baseUrl = `${environment.apiBaseUrl}/neighbors`;
 
     getAll(): Observable<NeighborResponse[]> {
         return this.http.get<NeighborResponse[]>(this.baseUrl);
