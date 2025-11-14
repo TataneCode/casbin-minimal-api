@@ -5,24 +5,34 @@ using CasbinMinimalApi.Application.Authorization;
 using CasbinMinimalApi.Constants;
 using CasbinMinimalApi.Infrastructure.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace CasbinMinimalApi.Startup;
 
 public static class CasbinExtensions
 {
-  public static void ConfigureCasbin(this WebApplicationBuilder builder)
+  public static async Task ConfigureCasbinAsync(this WebApplicationBuilder builder)
   {
-    if (EF.IsDesignTime) return;
-
-    var connectionString = builder.Configuration[ConfigurationKey.ConnectionString] ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-    var options = new DbContextOptionsBuilder<CasbinDbContext<int>>()
-    .UseNpgsql(connectionString)
-    .Options;
-    var context = new CasbinDbContext<int>(options, "casbin", "casbin_rules");
-    context.Database.EnsureCreated();
-    builder.Services.AddScoped(_ => context);
-    var adapter = new EFCoreAdapter<int>(context);
     var policyPath = Path.Combine(builder.Environment.ContentRootPath, "Casbin", "rbac_model.conf");
+    var connectionString = builder.Configuration[ConfigurationKey.ConnectionString] ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+    builder.Services.AddDbContext<AuthorizationDbContext>((_, optionsBuilder) =>
+    {
+      optionsBuilder
+              .UseNpgsql(connectionString,
+                  options =>
+                  {
+                    options.MigrationsHistoryTable("__EFMigrationsHistory", "casbin");
+                  });
+      optionsBuilder.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
+    });
+    builder.Services.AddScoped<AuthorizationDbContext>();
+
+    var authorizationDbContext = builder.Services.BuildServiceProvider().GetRequiredService<AuthorizationDbContext>();
+    await authorizationDbContext.Database.MigrateAsync();
+
+    // Configure Adapter and Enforcer
+    var adapter = new EFCoreAdapter<int>(authorizationDbContext);
     var enforcer = new Enforcer(policyPath, adapter);
     builder.Services.AddScoped<IAdapter>(_ => adapter);
     builder.Services.AddScoped<IEnforcer>(_ => enforcer);

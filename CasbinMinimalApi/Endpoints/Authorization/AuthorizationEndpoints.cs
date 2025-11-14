@@ -19,7 +19,7 @@ public static class AuthorizationEndpoints
     group.MapGet("/permission/check", CheckPermissionAsync)
       .WithName("CheckPermission")
       .WithSummary("Check if a user has a permission (user, resource, action)")
-      .Produces(StatusCodes.Status200OK);
+      .Produces<PermissionCheckResponse>(StatusCodes.Status200OK);
   }
 
   private static void MapUserRoleEndpoints(this RouteGroupBuilder group)
@@ -32,12 +32,12 @@ public static class AuthorizationEndpoints
     group.MapPost("/users/{user}/roles/{role}", AddRoleForUserAsync)
       .WithName("AddRoleForUser")
       .WithSummary("Assign a role to a user")
-      .Produces(StatusCodes.Status200OK);
+      .Produces<RoleAssignmentResponse>(StatusCodes.Status200OK);
 
     group.MapDelete("/users/{user}/roles/{role}", RemoveRoleForUserAsync)
       .WithName("RemoveRoleForUser")
       .WithSummary("Remove a role from a user")
-      .Produces(StatusCodes.Status200OK);
+      .Produces<RoleRemovalResponse>(StatusCodes.Status200OK);
   }
 
   private static void MapRoleUserEndpoints(this RouteGroupBuilder group)
@@ -53,21 +53,21 @@ public static class AuthorizationEndpoints
     group.MapPost("/roles/{role}/permissions", AddPermissionForRoleAsync)
       .WithName("AddPermissionForRole")
       .WithSummary("Add a permission (resource, action) to a role")
-      .Produces(StatusCodes.Status200OK)
+      .Produces<PermissionAddedResponse>(StatusCodes.Status200OK)
       .Produces(StatusCodes.Status400BadRequest);
 
     group.MapDelete("/roles/{role}/permissions", RemovePermissionForRoleAsync)
       .WithName("RemovePermissionForRole")
       .WithSummary("Remove a permission (resource, action) from a role")
-      .Produces(StatusCodes.Status200OK)
+      .Produces<PermissionRemovedResponse>(StatusCodes.Status200OK)
       .Produces(StatusCodes.Status400BadRequest);
   }
 
   // Handlers
-  private static async Task<IResult> CheckPermissionAsync([AsParameters] PermissionQuery query, IAuthorizationService service)
+  private static async Task<IResult> CheckPermissionAsync([AsParameters] PermissionRequest request, IAuthorizationService service)
   {
-    var allowed = await service.HasPermissionAsync(query.Resource, query.Action, query.User);
-    return Results.Ok(new { allowed });
+    var allowed = await service.HasPermissionAsync(request.Resource, request.Action, request.User);
+    return Results.Ok(new PermissionCheckResponse(allowed));
   }
 
   private static IResult GetRolesForUser(string user, IAuthorizationService service)
@@ -79,13 +79,13 @@ public static class AuthorizationEndpoints
   private static async Task<IResult> AddRoleForUserAsync(string user, string role, IAuthorizationService service)
   {
     var added = await service.AddRoleForUserAsync(user, role);
-    return Results.Ok(new { added });
+    return Results.Ok(new RoleAssignmentResponse(added));
   }
 
   private static async Task<IResult> RemoveRoleForUserAsync(string user, string role, IAuthorizationService service)
   {
     var removed = await service.RemoveRoleForUserAsync(user, role);
-    return Results.Ok(new { removed });
+    return Results.Ok(new RoleRemovalResponse(removed));
   }
 
   private static IResult GetUsersForRole(string role, IAuthorizationService service)
@@ -101,25 +101,16 @@ public static class AuthorizationEndpoints
       return Results.BadRequest("Resource and Action are required");
     }
     var added = await service.AddPermissionForRoleAsync(role, body.Resource, body.Action);
-    return Results.Ok(new { added });
+    return Results.Ok(new PermissionAddedResponse(added));
   }
 
-  private static async Task<IResult> RemovePermissionForRoleAsync(string role, [AsParameters] PermissionBodyOrQuery query, IAuthorizationService service)
+  private static async Task<IResult> RemovePermissionForRoleAsync(string role, [AsParameters] PermissionBodyRequest query, IAuthorizationService service)
   {
     if (string.IsNullOrWhiteSpace(query.Resource) || string.IsNullOrWhiteSpace(query.Action))
     {
       return Results.BadRequest("Resource and Action are required");
     }
     var removed = await service.RemovePermissionForRoleAsync(role, query.Resource, query.Action);
-    return Results.Ok(new { removed });
+    return Results.Ok(new PermissionRemovedResponse(removed));
   }
-
-  // Query record for /permission/check
-  public record PermissionQuery(string User, string Resource, string Action);
-
-  // Body for adding permission
-  public record AddPermissionRequest(string Resource, string Action);
-
-  // Allow passing resource/action either via query in delete
-  public record PermissionBodyOrQuery(string Resource, string Action);
 }

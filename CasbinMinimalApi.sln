@@ -7,13 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 		Readme.md = Readme.md
 		.gitignore = .gitignore
-		.github\workflows\docker-publish.yml = .github\workflows\docker-publish.yml
 		.env\api.env = .env\api.env
 		.env\pg.env = .env\pg.env
 		.env\secret.env = .env\secret.env
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasbinMinimalApi.Tests.Unit", "CasbinMinimalApi.Tests.Unit\CasbinMinimalApi.Tests.Unit.csproj", "{358331F2-8D93-4DED-9B0F-167AF1433168}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Github", "Github", "{B5C5FE93-36FB-4B5D-8EC7-D04359B7A7A8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\docker-publish.yml = .github\workflows\docker-publish.yml
+		.github\workflows\dotnet-build.yml = .github\workflows\dotnet-build.yml
+		.github\workflows\node-build.yml = .github\workflows\node-build.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

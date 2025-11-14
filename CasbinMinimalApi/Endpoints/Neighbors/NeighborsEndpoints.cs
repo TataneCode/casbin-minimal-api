@@ -4,13 +4,13 @@ using CasbinMinimalApi.Domain;
 using CasbinMinimalApi.Startup;
 using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace CasbinMinimalApi.Endpoints;
+namespace CasbinMinimalApi.Endpoints.Neighbors;
 
 public static class NeighborEndpoints
 {
   public static RouteGroupBuilder MapNeighborEndpoints(this IEndpointRouteBuilder app)
   {
-    var group = app.MapGroup("/api/neighbors")
+    var group = app.MapGroup("/neighbors")
         .WithTags("Neighbors");
     
     group.MapGet("/", GetAllAsync);
@@ -22,21 +22,21 @@ public static class NeighborEndpoints
     return group;
   }
 
-  private static async Task<Ok<IEnumerable<NeighborDto>>> GetAllAsync(INeighborRepository repo)
+  private static async Task<Ok<IEnumerable<NeighborResponse>>> GetAllAsync(INeighborRepository repo)
   {
     var items = await repo.GetAllAsync();
-    return TypedResults.Ok(items.Select(ToDto));
+    return TypedResults.Ok(items.Select(NeighborMappers.ToDto));
   }
 
-  private static async Task<Results<Ok<NeighborDto>, NotFound>> GetByIdAsync(long id, INeighborRepository repo)
+  private static async Task<Results<Ok<NeighborResponse>, NotFound>> GetByIdAsync(long id, INeighborRepository repo)
   {
     var entity = await repo.GetByIdAsync(id);
     return entity is null
         ? TypedResults.NotFound()
-        : TypedResults.Ok(ToDto(entity));
+        : TypedResults.Ok(NeighborMappers.ToDto(entity));
   }
 
-  private static async Task<Results<Created<NeighborDto>, BadRequest<string>, ForbidHttpResult>> CreateAsync(
+  private static async Task<Results<Created<NeighborResponse>, BadRequest<string>, ForbidHttpResult>> CreateAsync(
       CreateNeighborRequest request,
       INeighborRepository repo,
       IAuthorizationService authService)
@@ -57,11 +57,11 @@ public static class NeighborEndpoints
     repo.Add(entity);
     await repo.SaveChangesAsync();
 
-    var dto = ToDto(entity);
+    var dto = NeighborMappers.ToDto(entity);
     return TypedResults.Created($"/api/neighbors/{entity.Id}", dto);
   }
 
-  private static async Task<Results<Ok<NeighborDto>, NotFound, BadRequest<string>, ForbidHttpResult>> UpdateAsync(
+  private static async Task<Results<Ok<NeighborResponse>, NotFound, BadRequest<string>, ForbidHttpResult>> UpdateAsync(
       long id,
       UpdateNeighborRequest request,
       INeighborRepository repo,
@@ -87,7 +87,7 @@ public static class NeighborEndpoints
 
     repo.Update(entity);
     await repo.SaveChangesAsync();
-    return TypedResults.Ok(ToDto(entity));
+    return TypedResults.Ok(NeighborMappers.ToDto(entity));
   }
 
   private static async Task<Results<NoContent, NotFound, ForbidHttpResult>> DeleteAsync(
@@ -104,19 +104,4 @@ public static class NeighborEndpoints
     await repo.SaveChangesAsync();
     return TypedResults.NoContent();
   }
-
-  private static NeighborDto ToDto(Neighbor n) => new(
-      n.Id,
-      n.Name,
-      n.Email,
-      n.Address is null
-          ? null
-          : new AddressDto(n.Address.Street, n.Address.City, n.Address.ZipCode)
-  );
-
-  // DTOs
-  public record AddressDto(string Street, string City, string ZipCode);
-  public record NeighborDto(long Id, string Name, string Email, AddressDto? Address);
-  public record CreateNeighborRequest(string Name, string Email, AddressDto? Address);
-  public record UpdateNeighborRequest(string Name, string Email, AddressDto? Address);
 }

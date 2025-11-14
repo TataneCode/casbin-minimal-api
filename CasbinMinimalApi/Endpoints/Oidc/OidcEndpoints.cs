@@ -29,11 +29,6 @@ public static class OidcEndpoints
         var claims = contextAccessor.HttpContext?.User.Claims
             .Select(c => new UserClaim(c.Type, c.Value));
         var result = new UserInfo("You are signed in.", contextAccessor.HttpContext?.User.Identity?.Name, claims);
-
         return TypedResults.Ok(result);
     }
-    
-    private record UserInfo(string Message, string? Name, IEnumerable<UserClaim>? Claims);
-
-    private record UserClaim(string Type, string Value);
 }

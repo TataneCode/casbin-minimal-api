@@ -1,0 +1,87 @@
+.neighbors-section {
+  .panel {
+    background: var(--color-bg-surface);
+    border: 0.0625rem solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .panel-body {
+    padding: 1rem;
+  }
+
+  .status {
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .status.loading {
+    color: var(--color-text-muted);
+  }
+
+  .status.error {
+    color: var(--color-text-error);
+  }
+
+  .status.empty {
+    color: var(--color-text-muted);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .address-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+
+    .line {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  /* Legacy table styles kept commented for reference
+  .data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--color-bg-surface);
+
+    caption {
+      text-align: left;
+      padding: 0.5rem 0;
+      font-weight: 600;
+      color: var(--color-text-caption);
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 0.0625rem solid var(--color-border);
+      background: linear-gradient(var(--color-gradient-top), var(--color-gradient-bottom));
+    }
+
+    tbody td {
+      padding: 0.75rem;
+      border-bottom: 0.0625rem solid var(--color-border);
+    }
+
+    tbody tr:hover {
+      background: var(--color-bg-hover);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+  */
+}

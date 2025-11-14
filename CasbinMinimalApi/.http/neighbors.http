@@ -1,5 +1,6 @@
 # @CasbinMinimalApi_HostAddress = http://localhost:8680
-@CasbinMinimalApi_HostAddress = https://api.casbin:9443
+# @CasbinMinimalApi_HostAddress = https://api.casbin:9443
+@CasbinMinimalApi_HostAddress = http://api.casbin:9480
 
 ### Liste des voisins
 GET {{CasbinMinimalApi_HostAddress}}/api/neighbors

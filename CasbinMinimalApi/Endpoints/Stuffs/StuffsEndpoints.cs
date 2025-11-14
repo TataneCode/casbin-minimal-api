@@ -9,7 +9,7 @@ public static class StuffEndpoints
 {
   public static RouteGroupBuilder MapStuffEndpoints(this IEndpointRouteBuilder app)
   {
-    var group = app.MapGroup("/api/stuffs")
+    var group = app.MapGroup("/stuffs")
         .WithTags("Stuffs");
 
     group.MapGet("/", GetAllAsync);
@@ -24,7 +24,7 @@ public static class StuffEndpoints
   private static async Task<Ok<IEnumerable<StuffDto>>> GetAllAsync(IStuffRepository repo)
   {
     var items = await repo.GetAllAsync();
-    return TypedResults.Ok(items.Select(s => new StuffDto(s.Id, s.Name, s.Description, s.NeighborId)));
+    return TypedResults.Ok(StuffMappers.ToDto(items));
   }
 
   private static async Task<Results<Ok<StuffDto>, NotFound>> GetByIdAsync(long id, IStuffRepository repo)
@@ -32,7 +32,7 @@ public static class StuffEndpoints
     var entity = await repo.GetByIdAsync(id);
     return entity is null
         ? TypedResults.NotFound()
-        : TypedResults.Ok(new StuffDto(entity.Id, entity.Name, entity.Description, entity.NeighborId));
+        : TypedResults.Ok(StuffMappers.ToDto(entity));
   }
 
   private static async Task<Results<Created<StuffDto>, BadRequest<string>>> CreateAsync(
@@ -53,7 +53,7 @@ public static class StuffEndpoints
     repo.Add(entity);
     await repo.SaveChangesAsync();
 
-    var dto = new StuffDto(entity.Id, entity.Name, entity.Description, entity.NeighborId);
+    var dto = StuffMappers.ToDto(entity);
     return TypedResults.Created($"/api/stuffs/{entity.Id}", dto);
   }
 
@@ -68,17 +68,13 @@ public static class StuffEndpoints
     if (string.IsNullOrWhiteSpace(request.Name))
       return TypedResults.BadRequest("Name required.");
 
-    // Comme propriétés privées: recréer un nouvel objet n’est pas souhaitable (perte tracking).
-    // On met à jour via réflexion minimale ou expose un setter interne.
-    // Ici on utilise un pattern simple: mapper sur les champs via un constructeur + copie.
-    // Si besoin, ajuster l'entité pour ajouter une méthode Update.
     entity.GetType().GetProperty(nameof(Stuff.Name))!.SetValue(entity, request.Name.Trim());
     entity.GetType().GetProperty(nameof(Stuff.Description))!.SetValue(entity, request.Description?.Trim() ?? string.Empty);
 
     repo.Update(entity);
     await repo.SaveChangesAsync();
 
-    var dto = new StuffDto(entity.Id, entity.Name, entity.Description, entity.NeighborId);
+    var dto = StuffMappers.ToDto(entity);
     return TypedResults.Ok(dto);
   }
 
@@ -91,9 +87,4 @@ public static class StuffEndpoints
     await repo.SaveChangesAsync();
     return TypedResults.NoContent();
   }
-
-  // DTOs / Contracts
-  public record StuffDto(long Id, string Name, string Description, long NeighborId);
-  public record CreateStuffRequest(string Name, string? Description, long NeighborId);
-  public record UpdateStuffRequest(string Name, string? Description);
 }

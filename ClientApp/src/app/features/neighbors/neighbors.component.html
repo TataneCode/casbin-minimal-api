@@ -1,0 +1,29 @@
+<section class="neighbors-section">
+  <h2>{{ text.heading }}</h2>
+  <p>{{ text.intro }}</p>
+
+  <div class="panel">
+    <div class="panel-body">
+      @if (loading()) {
+        <div class="status loading">{{ text.table.loading }}</div>
+      } @else if (error()) {
+        <div class="status error">{{ text.table.errorPrefix }}{{ error() }}</div>
+      } @else {
+        @if (neighborsCards().length) {
+          <div class="cards-grid" role="list" aria-label="{{ text.table.caption }}">
+            @for (c of neighborsCards(); track $index) {
+              <app-entity-card role="listitem" [title]="c.name" [subtitle]="c.email" [imageUrl]="c.imageUrl" [imageAlt]="c.name">
+                <div class="address-lines">
+                  <span class="line">{{ c.addressLine }}</span>
+                  <span class="line">{{ c.cityZip }}</span>
+                </div>
+              </app-entity-card>
+            }
+          </div>
+        } @else {
+          <div class="status empty">{{ text.table.empty }}</div>
+        }
+      }
+    </div>
+  </div>
+</section>

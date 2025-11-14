@@ -1,0 +1,25 @@
+<article class="entity-card" [attr.data-has-image]="!!imageUrl">
+  <div class="media" aria-hidden="true">
+    @if (imageUrl) {
+      <img width="56" height="56" [ngSrc]="imageUrl" [alt]="imageAlt || title" loading="lazy" />
+    } @else {
+      <i class="fa-solid" [class]="'fa-solid ' + fallbackIcon" aria-hidden="true"></i>
+    }
+  </div>
+  <div class="content">
+    <header class="header">
+      <h3 class="title">{{ title }}</h3>
+      @if (subtitle) {
+        <p class="subtitle">{{ subtitle }}</p>
+      }
+    </header>
+    <div class="body">
+      <ng-content></ng-content>
+    </div>
+    @if (hasFooter) {
+      <footer class="footer">
+        <ng-content select="[card-footer]"></ng-content>
+      </footer>
+    }
+  </div>
+</article>
