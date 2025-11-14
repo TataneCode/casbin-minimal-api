@@ -4,6 +4,15 @@
   traefik-certificates: {}
 
 services:
+  pgsql:
+    image: postgres:17
+    env_file:
+      - .env/pg.env
+    ports:
+      - "15832:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
   proxy:
     image: traefik:v3.0
     command:
@@ -15,6 +24,8 @@ services:
     ports:
       - "9480:80"
       - "9444:443"
+    depends_on:
+      - pgsql
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
@@ -27,8 +38,8 @@ services:
       - .env/api.env
       - .env/secret.env
     depends_on:
-      - proxy
       - pgsql
+      - proxy
     labels:
       - "traefik.enable=true"
       # Router HTTP
@@ -40,10 +51,3 @@ services:
       - "traefik.http.routers.casbin-https.entrypoints=websecure"
       - "traefik.http.routers.casbin-https.tls=true"
       - "traefik.http.services.casbin.loadbalancer.server.port=8080"
-
-  pgsql:
-    image: postgres:17
-    env_file:
-      - .env/pg.env
-    volumes:
-      - pg-data:/var/lib/postgresql/data

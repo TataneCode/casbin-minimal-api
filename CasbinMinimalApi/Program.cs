@@ -13,7 +13,7 @@ builder.Services.AddOpenApi();
 
 builder.ConfigureDatabase();
 builder.ConfigureSecurity();
-builder.ConfigureCasbin();
+await builder.ConfigureCasbinAsync();
 
 // Configure CORS via extension (dev only, values from appsettings)
 builder.ConfigureCors();

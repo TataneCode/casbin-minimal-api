@@ -26,6 +26,9 @@ dotnet ef migrations add "<MigrationName>" --context ScissorsDbContext --output-
 ```
 dotnet ef migrations add "<MigrationName>" --context AuthenticationDbContext --output-dir Persistence/Authentication/Migrations
 ```
+```
+dotnet ef migrations add "<MigrationName>" --context AuthorizationDbContext --output-dir Persistence/Authorization/Migrations
+```
 
 ## Secrets
 This application needs a connection to an open id authentication issuer to be fully operational.
